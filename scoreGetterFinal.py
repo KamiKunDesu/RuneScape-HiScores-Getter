@@ -33,8 +33,7 @@ def _getHTTPResponse(username: str, accountType='N'):
     status = response.status
     #Raises exception if error status, most likely due to wrong user name or account type
     if status != 200:
-        raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
-        return
+        raise Exception("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
     #Decodes and reads the response object into ascii and saves it to a variable
     response = response.read().decode('ascii')
     #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
@@ -154,7 +153,7 @@ def returnskillsandmonstersdict(user: str, accountType: str = 'N'):
     return final_dict
 
 
-user_data = returnskillsandmonstersdict('georgedubya')
+user_data = returnskillsandmonstersdict('pgp green')
 
 print(user_data["Skills"])
 print("\n")
