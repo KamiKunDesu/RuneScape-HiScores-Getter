@@ -3,96 +3,45 @@ import http.client
 """
 _getHTTPResponse is a function which handles making a request to the
 fucking bullshit useless JaGex runescape hiscores api.
-
 It also handles the shitty csv format that it returns the data in, reads
 it and processes the fucking bullshit so that it's in a useable format
-
 It then returns the usable format (list) for use processing to make some
 dictionaries of relevant data
-
 It takes the username and account type as an argument and raises an error
 if the username is wrong.
 """
 def _getHTTPResponse(username: str, accountType='N'):
-        #This raises an http connection to the Runescape api
-        conn = http.client.HTTPSConnection('secure.runescape.com')
-        '''
-        Each of these if statements handles a different account type and
-        N = "normal", "IM" = Iron Man, "UIM" = "Ultimate Iron Man",
-        "HIM" = Hardcore Iron Man
-        '''
-        if accountType == 'N':
-            #handles the specific api request
-            conn.request("GET", "/m=hiscore_oldschool/index_lite.ws?player={}".format(username.replace(' ', '%20')))
-            #gets response and stores it in variable
-            response = conn.getresponse()
-            #stores the status i.e. 404, 403 errors etc
-            status = response.status
-            #Raises exception if error status, most likely due to wrong user name or account type
-            if status != 200:
-                raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
-                return
-            #Decodes and reads the response object into ascii and saves it to a variable
-            response = response.read().decode('ascii')
-            #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
-            response = response.replace('\n', ',')
-            response = response.split(',')
-            #return list of each field in the request for further processing
-            return response
-        elif accountType == 'IM':
-            #handles the specific api request
-            conn.request("GET", "/m=hiscore_oldschool_ironman/index_lite.ws?player={}".format(username.replace(' ', '%20')))
-             #gets response and stores it in variable
-            response = conn.getresponse()
-            #stores the status i.e. 404, 403 errors etc
-            status = response.status
-            #Raises exception if error status, most likely due to wrong user name or account type
-            if status != 200:
-                raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
-                return
-            #Decodes and reads the response object into ascii and saves it to a variable    
-            response = response.read().decode('ascii')
-            #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
-            response = response.replace('\n', ',')
-            response = response.split(',')
-            #return list of each field in the request for further processing
-            return response
-        elif accountType == "UIM":
-            #handles the specific api request
-            conn.request("GET", "/m=hiscore_oldschool_ultimate/index_lite.ws?player={}".format(username.replace(' ', '%20')))
-             #gets response and stores it in variable
-            response = conn.getresponse()
-            #stores the status i.e. 404, 403 errors etc
-            status = response.status
-            #Raises exception if error status, most likely due to wrong user name or account type
-            if status != 200:
-                raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
-                return
-            #Decodes and reads the response object into ascii and saves it to a variable
-            response = response.read().decode('ascii')
-            #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
-            response = response.replace('\n', ',')
-            response = response.split(',')
-            #return list of each field in the request for further processing
-            return response
-        elif accountType == "HIM":
-            #handles the specific api request
-            conn.request("GET", "/m=hiscore_oldschool_hardcore_ironman/index_lite.ws?player={}".format(username.replace(' ', '%20')))
-             #gets response and stores it in variable
-            response = conn.getresponse()
-            #stores the status i.e. 404, 403 errors etc
-            status = response.status
-            #Raises exception if error status, most likely due to wrong user name or account type
-            if status != 200:
-                raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
-                return
-            #Decodes and reads the response object into ascii and saves it to a variable
-            response = response.read().decode('ascii')
-            #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
-            response = response.replace('\n', ',')
-            response = response.split(',')
-            #return list of each field in the request for further processing
-            return response
+    #This raises an http connection to the Runescape api
+    conn = http.client.HTTPSConnection('secure.runescape.com')
+    '''
+    Each of these if statements handles a different account type and
+    N = "normal", "IM" = Iron Man, "UIM" = "Ultimate Iron Man",
+    "HIM" = Hardcore Iron Man
+    '''
+    #handles the specific api request
+    if accountType == 'N':
+        conn.request("GET", "/m=hiscore_oldschool/index_lite.ws?player={}".format(username.replace(' ', '%20')))
+    elif accountType == 'IM':
+        conn.request("GET", "/m=hiscore_oldschool_ironman/index_lite.ws?player={}".format(username.replace(' ', '%20')))
+    elif accountType == "UIM":
+        conn.request("GET", "/m=hiscore_oldschool_ultimate/index_lite.ws?player={}".format(username.replace(' ', '%20')))
+    elif accountType == "HIM":
+        conn.request("GET", "/m=hiscore_oldschool_hardcore_ironman/index_lite.ws?player={}".format(username.replace(' ', '%20')))
+    #gets response and stores it in variable
+    response = conn.getresponse()
+    #stores the status i.e. 404, 403 errors etc
+    status = response.status
+    #Raises exception if error status, most likely due to wrong user name or account type
+    if status != 200:
+        raise("Player name given not found in account type provided. Valid account types are, 'N' (Normal), 'IM' (Iron Man), 'UIM' (Ultimate Iron Man), 'HIM' (Hardcore Iron Man)")
+        return
+    #Decodes and reads the response object into ascii and saves it to a variable
+    response = response.read().decode('ascii')
+    #Next two lines get rid of new lines in the returned response and split them by comma delimiter into a list (since the response is csv)
+    response = response.replace('\n', ',')
+    response = response.split(',')
+    #return list of each field in the request for further processing
+    return response
 
 
 '''
@@ -100,7 +49,6 @@ This is the function that processes the request from the osrs api and makes
 two separate dictionaries, one for skills and one for bosses (by pulling through from the
 appropriate indexes) and then it returns a dictionary with those two dictionaries as
 sub dictionaries
-
 it takes username and account type as parameters (since it needs to pass these params
 through to the request function)
 '''
