@@ -5,10 +5,8 @@ _getHTTPResponse is a function which handles making a request to the JaGex runes
 
 It also handles the shitty csv format that it returns the data in, reads
 it and processes the fucking bullshit so that it's in a useable format
-
 It then returns the usable format (list) for use processing to make some
 dictionaries of relevant data
-
 It takes the username and account type as an argument and raises an error
 if the username is wrong.
 """
@@ -53,7 +51,6 @@ This is the function that processes the request from the osrs api and makes
 two separate dictionaries, one for skills and one for bosses (by pulling through from the
 appropriate indexes) and then it returns a dictionary with those two dictionaries as
 sub dictionaries
-
 it takes username and account type as parameters (since it needs to pass these params
 through to the request function)
 '''
