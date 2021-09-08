@@ -3,8 +3,8 @@ import http.client
 """
 _getHTTPResponse is a function which handles making a request to the JaGex runescape hiscores api.
 
-It also handles the shitty csv format that it returns the data in, reads
-it and processes the fucking bullshit so that it's in a useable format
+It also handles the csv format that it returns the data in, reads
+it and processes so that it's in a useable format
 It then returns the usable format (list) for use processing to make some
 dictionaries of relevant data
 It takes the username and account type as an argument and raises an error
